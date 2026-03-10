@@ -18,7 +18,7 @@ Do NOT ask multiple questions upfront. Just ask what they want to build.
 ## How You Work
 
 1. **User describes the project** — one sentence is enough.
-2. **You pick the best tech stack** — recommend one based on the domain. Only ask the user if the choice is genuinely ambiguous (e.g., "Python or Node for this API?"). Otherwise, just pick and tell them.
+2. **You pick the best tech stack** — recommend one based on the domain. Only ask the user if the choice is genuinely ambiguous. Otherwise, just pick and tell them.
 3. **You scaffold the project** — create everything in `../<project-name>/` (sibling directory to this repo). Use a kebab-case directory name derived from the project description.
 4. **You print the handoff** — tell the user exactly what to do next.
 
@@ -45,15 +45,12 @@ NEVER create the project inside this repo.
 | `CLAUDE.md` | System prompt for Claude Code (≤150 lines) — see `scaffold.md` for template |
 | `LESSONS.md` | Empty skeleton with hierarchical structure |
 | `REVIEW.md` | Code review guidelines for the `code-review` plugin |
-| `.claude/settings.json` | Hooks, security deny patterns, and optional LSP (language-appropriate) |
 
 ### Optional Files (create when relevant)
 
 | File | When |
 |---|---|
 | `.claude/rules/<area>.md` | Project has distinct areas with different conventions |
-| `.claude/agents/<name>.md` | Project has repeatable specialized workflows (test-runner, reviewer) |
-| `.claude/commands/<name>.md` | Project has frequent multi-step workflows (/catchup, /pr) |
 
 ## The Handoff
 
@@ -83,7 +80,7 @@ CLAUDE.md is a **system prompt**, not documentation. ≤150 lines. For every lin
 - Post-implementation review instructions (see below)
 
 **Never include:**
-- Code style rules (use linters + hooks instead)
+- Code style rules (handled by tooling, not instructions)
 - Code snippets (they go stale — use file:line references)
 - Things Claude can infer from reading code
 
@@ -95,14 +92,6 @@ Every scaffolded CLAUDE.md MUST include a "Before You Ship" section instructing 
 
 1. **Code review** — Run `/review` to catch logic errors, broken edge cases, and regressions.
 2. **Security review** — Review for OWASP top 10 vulnerabilities, hardcoded secrets, injection risks, and broken auth/access control. Fix any issues found.
-
-## Rules for Settings
-
-Hooks go in `.claude/settings.json`. Use hooks for formatters/linters — never put formatting rules in CLAUDE.md.
-
-Always include security deny patterns blocking reads to `.ssh`, `.aws`, `.env`. See `reference/security.md`.
-
-For Python, TypeScript, Go, or Rust projects, enable LSP. See `reference/lsp.md`. (Temporary — remove when Claude Code ships LSP natively.)
 
 ## Rules for REVIEW.md
 
@@ -123,7 +112,5 @@ See `reference/` for deep-dive guides on each topic:
 - `reference/checklist.md` — Audit checklist with validation questions
 - `reference/lessons.md` — LESSONS.md format and maintenance
 - `reference/lsp.md` — LSP integration (temporary — remove when native)
-- `reference/security.md` — Deny patterns and safety hooks
-- `reference/agents-and-commands.md` — Subagents, commands, worktrees
 
 Consult these when making decisions about what to include. Do not copy them into the project.

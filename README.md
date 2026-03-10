@@ -55,9 +55,6 @@ Claude picks the best tech stack, creates a new project folder next to this one,
 ├── CLAUDE.md              # AI instructions tuned for your stack
 ├── LESSONS.md             # Grows as you build — bugs, gotchas, solutions
 ├── REVIEW.md              # Code review guidelines
-├── .claude/
-│   ├── settings.json      # Formatter hooks, security, LSP
-│   └── hooks/             # Safety scripts
 └── src/                   # Your project code
 ```
 
@@ -125,32 +122,16 @@ Module-Specific Bugs              ← narrow fixes
 
 **Maintenance:** Add immediately when a bug takes >5 minutes to debug. Remove when the underlying code changes. Promote broadly-applicable entries to the top.
 
-### Hooks — Deterministic Enforcement
+### Hooks — Advanced (Not Scaffolded)
 
-Hooks are shell commands that run at specific lifecycle points. They go in `.claude/settings.json` and provide **guaranteed** enforcement — unlike CLAUDE.md instructions which are best-effort and can be deprioritized in long contexts.
+Claude Code supports hooks — shell commands that run at lifecycle events (after edits, before commits, etc.). Common uses include auto-formatting and type-checking.
 
-| Hook Event | Fires When | Use For |
-|---|---|---|
-| `PostEditTool` | After any file edit | Formatters (prettier, ruff, gofmt) |
-| `PreToolUse` | Before a tool runs | Blocking dangerous commands |
-| `PreCommit` | Before git commit | Type-checking, test running, secret scanning |
-| `SessionStart` | Session begins | Injecting context (recent tickets, team notes) |
-| `Stop` | Claude finishes responding | Anti-rationalization gates, completion checks |
+This scaffolder does NOT create hooks in new projects. Security is handled by global deny patterns set up during install. If you want to add hooks later (e.g., auto-formatting with prettier or ruff), see the [Claude Code docs](https://code.claude.com/docs/en/hooks).
 
-**Exit codes matter:**
-- `0` = success (stdout shown in transcript)
-- `2` = blocking error (stderr fed back to Claude as a message — Claude will try to fix the issue)
-- Other non-zero = non-blocking warning
+### Security — Deny Patterns
 
-**The core rule:** "Never send an LLM to do a linter's job." If you find yourself writing `IMPORTANT: Always use 2-space indentation` in CLAUDE.md, that's a hook running `prettier --write`, not an instruction.
+The install script sets up **global** deny patterns in `~/.claude/settings.json` that block Claude from reading sensitive files across all projects:
 
-**Placement strategy:** Avoid blocking at `Edit/Write` — it confuses agents mid-plan. Prefer checking completed work at commit stage (`PreCommit`).
-
-### Security — Deny Patterns & Safety Hooks
-
-Every scaffolded project includes two security layers:
-
-**1. Deny patterns** block Claude from reading sensitive files:
 ```json
 {
   "permissions": {
@@ -161,13 +142,7 @@ Every scaffolded project includes two security layers:
 }
 ```
 
-**2. Safety hooks** block dangerous commands before they execute:
-```bash
-# .claude/hooks/block-dangerous.sh
-# Blocks: rm -rf /, force push to main, git reset --hard
-```
-
-**Why both?** Deny patterns handle file access. Safety hooks handle command execution. They're independent layers — a command can be allowed to run but blocked from reading certain files, or vice versa.
+These are global — they apply to every project automatically, so individual scaffolded projects don't need their own deny patterns.
 
 ### LSP — Structured Code Navigation
 
@@ -252,9 +227,9 @@ The install script sets up the [Claude in Chrome extension](https://chromewebsto
 
 Claude shares your browser's login state, so it can interact with any site you're signed into (Google Docs, Notion, internal tools) without API setup.
 
-### Settings Merge — Non-Destructive Configuration
+### Settings Merge — Non-Destructive Global Configuration
 
-The install scripts merge settings into `~/.claude/settings.json` using deep merge with array deduplication. This means:
+The install scripts merge settings into the **global** `~/.claude/settings.json` (not per-project settings) using deep merge with array deduplication. This means:
 
 - **Existing settings are preserved** — your custom hooks, plugins, and deny patterns aren't overwritten
 - **Deny arrays are deduplicated** — running the installer twice doesn't create duplicate entries
@@ -271,6 +246,8 @@ Claude Code has three mechanisms for controlling behavior, each with different g
 | **Hooks** | Deterministic — always runs | Lifecycle event fires | Hard rules (formatting, security, blocking) |
 | **CLAUDE.md** | Best-effort — may be deprioritized | Every conversation | Guidance, conventions, patterns, recipes |
 | **Skills / Path rules** | On-demand — loads when relevant | Context match or manual trigger | Domain knowledge, complex workflows |
+
+**Note:** Projects scaffolded by this tool use only CLAUDE.md instructions and REVIEW.md for enforcement. Hooks are available as an advanced option you can add later.
 
 **The decision framework:**
 ```

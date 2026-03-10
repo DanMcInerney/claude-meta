@@ -50,7 +50,7 @@ done
 
 # 5. scaffold.md contains required template sections
 echo "--- scaffold.md sections ---"
-for section in "CLAUDE.md Template" "LESSONS.md Template" "REVIEW.md Template" "Hooks by Language" "Settings Template"; do
+for section in "CLAUDE.md Template" "LESSONS.md Template" "REVIEW.md Template" "Common Pitfalls by Domain"; do
   if grep -q "$section" scaffold.md 2>/dev/null; then
     pass "scaffold.md contains '${section}'"
   else
