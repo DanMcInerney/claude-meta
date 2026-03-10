@@ -42,11 +42,11 @@ That's it. The script installs everything (Claude Code, LSP servers, plugins, Ch
 
 Claude will greet you and ask what you want to build. Just tell it:
 
-> "A REST API for managing bookmarks"
+> "Make me a solitaire game I can play in my browser"
 
-> "A CLI tool that monitors Kalshi prediction markets"
+> "Create a personal website with a blog"
 
-> "A multiplayer card game with React and WebSockets"
+> "Build an app that tracks my daily habits"
 
 Claude picks the best tech stack, creates a new project folder next to this one, and sets up:
 

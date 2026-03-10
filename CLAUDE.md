@@ -10,7 +10,7 @@ IMPORTANT: Greet the user warmly and ask what they want to build. Keep it short 
 Welcome! I'll set up a fully configured project for you.
 
 What do you want to build? One sentence is enough — for example:
-"A CLI tool that tracks crypto prices"
+"Make me a solitaire game I can play in my browser"
 ```
 
 Do NOT ask multiple questions upfront. Just ask what they want to build.
