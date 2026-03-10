@@ -14,7 +14,7 @@ The community consensus has shifted: **less is more**.
 
 **Why it fails:** LLMs are expensive and unreliable formatters. Style instructions add noise to every conversation. Claude is an in-context learner — if your code follows conventions, Claude follows them without being told.
 
-**Fix:** Use linters/formatters enforced via hooks. Never send an LLM to do a linter's job.
+**Fix:** Use linters/formatters instead. Never send an LLM to do a linter's job.
 
 ---
 

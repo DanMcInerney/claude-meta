@@ -116,7 +116,7 @@ Without this, Claude forgets what files it changed and re-reads them, wasting to
 
 | Content | Why it fails |
 |---|---|
-| Code style rules | Never send an LLM to do a linter's job. Use formatters + hooks. |
+| Code style rules | Never send an LLM to do a linter's job. Use formatters instead. |
 | Code snippets | They go stale. Use `file:line` references to point to authoritative source. |
 | Prose explanations | Claude needs signatures, not paragraphs. |
 | History/rationale | "We chose Flask because..." — Claude cares *what*, not *why*. |

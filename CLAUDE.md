@@ -76,7 +76,7 @@ CLAUDE.md is a **system prompt**, not documentation. ≤150 lines. For every lin
 - Run/test/deploy commands (exact, copy-pasteable)
 - Pitfalls ("Things That Will Bite You")
 - LESSONS.md reference
-- File structure with pointers
+- File structure with pointers to subdirectory CLAUDE.md files
 - Post-implementation review instructions (see below)
 
 **Never include:**
@@ -85,6 +85,16 @@ CLAUDE.md is a **system prompt**, not documentation. ≤150 lines. For every lin
 - Things Claude can infer from reading code
 
 **Format:** Tables > prose. Signatures > descriptions. Bullets > paragraphs.
+
+## Rules for Subfolder CLAUDE.md Files
+
+Large projects should have a CLAUDE.md in each major subdirectory. Same rules apply (≤150 lines, no duplication, only non-inferable content).
+
+- **Root CLAUDE.md** — Entry point: decision tree, commands, pitfalls, file structure with pointers
+- **Subfolder CLAUDE.md** — What's in this directory: file listing, API signatures, "how to add X" recipes, local conventions
+- **No duplication** — Root says "see engines/CLAUDE.md for engine APIs." Never repeats them.
+
+See `reference/structure.md` for the full hierarchy pattern.
 
 ## Rules for Post-Implementation Review
 
@@ -106,7 +116,7 @@ Start with the empty skeleton. Claude fills it during development.
 See `reference/` for deep-dive guides on each topic:
 - `reference/content.md` — What to include/exclude with examples
 - `reference/structure.md` — Hierarchy, @imports, path-scoped rules
-- `reference/enforcement.md` — Hooks vs instructions vs skills
+- `reference/enforcement.md` — Instructions vs path-scoped rules vs skills
 - `reference/self-improving.md` — Self-improving patterns, handoff files
 - `reference/anti-patterns.md` — Common mistakes (backed by ETH Zurich research)
 - `reference/checklist.md` — Audit checklist with validation questions

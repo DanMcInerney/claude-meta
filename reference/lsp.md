@@ -57,4 +57,4 @@ Check LSP diagnostics after edits — fix type errors immediately.
 - Always ask the user if they want LSP enabled
 - Include if the project uses Python, TypeScript, Go, or Rust
 - Skip for languages without official Claude Code LSP plugins
-- LSP config goes in the project's `.claude/settings.json` alongside hooks
+- LSP config goes in the project's `.claude/settings.json`

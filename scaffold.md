@@ -24,7 +24,7 @@ Use this as the skeleton when generating CLAUDE.md for a new project. Fill in th
 \`\`\`bash
 [dev command]       # Run dev server / start app
 [test command]      # Run tests
-[lint command]      # Lint (if no hook)
+[lint command]      # Lint
 [build command]     # Build for production
 [deploy command]    # Deploy (if applicable)
 \`\`\`

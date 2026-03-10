@@ -69,7 +69,7 @@ CLAUDE.md and LESSONS.md must be treated like code — reviewed and pruned regul
 **The staleness test:** For each entry, ask:
 1. Does the code this refers to still exist?
 2. Has Claude ever actually violated this? (If not, it may be unnecessary)
-3. Is this now enforced by tooling? (Move to hooks, delete from CLAUDE.md)
+3. Is this now enforced by tooling? (If a linter/formatter handles it, delete from CLAUDE.md)
 
 ## Auto-Memory vs CLAUDE.md vs LESSONS.md
 
